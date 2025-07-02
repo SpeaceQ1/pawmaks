@@ -1,7 +1,7 @@
 {
   "name": "mObywatel",
   "short_name": "mObywatel",
-  "start_url": "/",
+  "start_url": "/pawmaks/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
