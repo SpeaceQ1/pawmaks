@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrollable Image with Animated Flag and Clock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet"> <!-- Dodanie czcionki Roboto -->
+    <style>
+        body {
+            margin: 0;
+            height: 100vh; /* Wysokość całego widoku */
+            overflow: hidden; /* Ukrywa domyślne przewijanie */
+            font-family: Arial, sans-serif; /* Ustawienia czcionki dla ciała */
+        }
+
+        .scroll-container {
+            height: 100%; /* Kontener zajmuje całą wysokość */
+            overflow-y: auto; /* Umożliwienie przewijania w pionie */
+            position: relative; /* Pozycjonowanie dla flagi i zegara */
+        }
+
+        .scrollable-image {
+            width: 100%; /* Zmienna szerokość na 100% */
+            height: auto; /* Automatyczna wysokość, aby zachować proporcje */
+            display: block; /* Ustawienie bloku, aby można było przewijać */
+        }
+		.flaga {
+            position: absolute; /* Flaga wyświetlana na obrazie */
+            top: 20px; /* Odległość od góry */
+            left: 20px; /* Odległość od lewej */
+            width: 100px; /* Szerokość flagi */
+            height: auto; /* Automatyczna wysokość */
+            z-index: 10; /* Umieszczamy flagę nad tłem */
+        }
+
+        .flag-animation {
+            position: absolute; /* Flaga wyświetlana na obrazie */
+            top: 20px; /* Odległość od góry */
+            left: 20px; /* Odległość od lewej */
+            width: 100px; /* Szerokość flagi */
+            height: auto; /* Automatyczna wysokość */
+            z-index: 10; /* Umieszczamy flagę nad tłem */
+        }
+
+        .clock {
+            position: absolute; /* Pozycjonowanie zegara */
+            top: 20px; /* Odległość od góry */
+            right: 50%; /* Odległość od prawej */
+            padding: 10px; /* Padding wewnętrzny */
+            font-size: 16px; /* Rozmiar czcionki */
+            z-index: 10; /* Umieszczamy zegar nad tłem */
+            color: gray; /* Kolor czcionki na szaro */
+            font-family: 'Roboto', sans-serif; /* Ustawienia czcionki na Roboto */
+            background-color: transparent; /* Brak tła */
+        }
+
+        .time-label {
+            display: inline; /* Etykieta w linii */
+            font-weight: normal; /* Normalna grubość czcionki */
+            text-transform: capitalize; /* Ustawienie tekstu na wielką literę */
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-container">
+        <img src="maks.png" alt="Scrollable Image" class="scrollable-image">
+		<img src="godlo.gif" alt="Scrollable Image" class="flaga">
+        <img id="flag" src="" alt="Flag Animation" class="flag-animation">
+        <div id="clock" class="clock">
+            <span class="time-label">Czas:</span> <!-- Etykieta dla czasu -->
+            <span id="current-time"></span> <!-- Miejsce na aktualny czas -->
+            <span id="current-date"></span> <!-- Miejsce na aktualną datę -->
+        </div>
+    </div>
+
+    <script>
+	if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js").then(() => {
+    console.log("Service Worker zarejestrowany!");
+  });
+}
+        const flagElement = document.getElementById('flag');
+        const timeElement = document.getElementById('current-time'); // Miejsce na aktualny czas
+        const dateElement = document.getElementById('current-date'); // Miejsce na aktualną datę
+        const totalFrames = 60; // Liczba klatek animacji
+        let currentFrame = 0;
+
+        function updateFlag() {
+            // Ustal ścieżkę do zdjęć flagi
+            flagElement.src = `flaga/flag_pl_${currentFrame.toString().padStart(2, '0')}.webp`;
+            currentFrame = (currentFrame + 1) % totalFrames; // Zwiększanie indeksu klatki
+        }
+
+        // Ustaw interwał, aby zmieniać flagę co 100 ms
+        setInterval(updateFlag, 100);
+
+        function updateClock() {
+            const now = new Date();
+            const optionsTime = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }; // Opcje tylko dla czasu
+            const optionsDate = { year: 'numeric', month: '2-digit', day: '2-digit' }; // Opcje tylko dla daty
+
+            timeElement.textContent = now.toLocaleString('pl-PL', optionsTime); // Formatowanie czasu
+            dateElement.textContent = now.toLocaleString('pl-PL', optionsDate); // Formatowanie daty
+        }
+
+        // Aktualizuj zegar co sekundę
+        setInterval(updateClock, 1000);
+        updateClock(); // Inicjalizacja zegara
+    </script>
+</body>
+</html>
