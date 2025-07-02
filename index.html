@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="/pawmaks/manifest.json">
 <meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Moja Aplikacja">
+<link rel="apple-touch-icon" href="icon-192.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scrollable Image with Animated Flag and Clock</title>
@@ -28,28 +32,28 @@
         }
 		.flaga {
             position: absolute; /* Flaga wyświetlana na obrazie */
-            top: 20px; /* Odległość od góry */
-            left: 20px; /* Odległość od lewej */
-            width: 100px; /* Szerokość flagi */
+            top: 385px; /* Odległość od góry */
+            left: 40px; /* Odległość od lewej */
+            width: 24px; /* Szerokość flagi */
             height: auto; /* Automatyczna wysokość */
             z-index: 10; /* Umieszczamy flagę nad tłem */
         }
 
         .flag-animation {
             position: absolute; /* Flaga wyświetlana na obrazie */
-            top: 20px; /* Odległość od góry */
-            left: 20px; /* Odległość od lewej */
-            width: 100px; /* Szerokość flagi */
+            top: 330px; /* Odległość od góry */
+            left: 42px; /* Odległość od lewej */
+            width: 55px; /* Szerokość flagi */
             height: auto; /* Automatyczna wysokość */
             z-index: 10; /* Umieszczamy flagę nad tłem */
         }
 
         .clock {
             position: absolute; /* Pozycjonowanie zegara */
-            top: 20px; /* Odległość od góry */
-            right: 50%; /* Odległość od prawej */
+            top: 80px; /* Odległość od góry */
+            right: 100px; /* Odległość od prawej */
             padding: 10px; /* Padding wewnętrzny */
-            font-size: 16px; /* Rozmiar czcionki */
+            font-size: 12px; /* Rozmiar czcionki */
             z-index: 10; /* Umieszczamy zegar nad tłem */
             color: gray; /* Kolor czcionki na szaro */
             font-family: 'Roboto', sans-serif; /* Ustawienia czcionki na Roboto */
@@ -76,11 +80,12 @@
     </div>
 
     <script>
-	if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/sw.js").then(() => {
+	    if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/jaobywatel/sw.js").then(() => {
     console.log("Service Worker zarejestrowany!");
   });
 }
+
         const flagElement = document.getElementById('flag');
         const timeElement = document.getElementById('current-time'); // Miejsce na aktualny czas
         const dateElement = document.getElementById('current-date'); // Miejsce na aktualną datę
